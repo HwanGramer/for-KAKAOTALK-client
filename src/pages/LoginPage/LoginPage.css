@@ -55,6 +55,10 @@
     margin-bottom: 100px;
 }
 
+.LoginPageLoginBtn:hover{
+    cursor: pointer;
+}
+
 .LoginPageFooter{
     position: absolute;
     bottom: 45px;
@@ -69,4 +73,10 @@
 .LoginPageFooter > div{
     padding-right: 11px;
     border-right:1px solid rgba(104, 102, 102, 0.144);
+}
+.LoginPageFooter > div:hover{
+    cursor: pointer;
+}
+.LoginPageFooter > p:hover{
+    cursor: pointer;
 }

@@ -1,7 +1,9 @@
 import React from 'react'
 import './LoginPage.css';
-
+import { useNavigate } from 'react-router-dom';
 function LoginPage() {
+  const navi = useNavigate();
+
   return (
     <div className='LoginPage'>
       <img className='LoginPageKaKaoLogoImg' alt='kakaoLogo' src='img/kakaoLogo.png'></img>
@@ -19,7 +21,7 @@ function LoginPage() {
       </div>
 
       <div className='LoginPageFooter'>
-          <div className='SignUp'>회원가입</div>
+          <div onClick={()=>{navi('/signUp')}} className='SignUp'>회원가입</div>
           <div className='FindKakaoId'>카카오계정 찾기</div>
           <p className='SetPassword'>비밀번호 재설정</p>
       </div>
