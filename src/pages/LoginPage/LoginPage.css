@@ -59,6 +59,23 @@
     cursor: pointer;
 }
 
+
+.LoginPageSucLoginBtn{  /* 로그인불들어온 버튼 */
+    margin-top: 5px;
+    width: 240px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid rgba(136, 136, 136, 0.308);
+    background-color: #423630;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+
 .LoginPageFooter{
     position: absolute;
     bottom: 45px;

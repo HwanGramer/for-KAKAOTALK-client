@@ -1,0 +1,64 @@
+.MainPage{
+    display: flex;
+}
+
+.MainPageSideBar{
+    width: 70px;
+    height: 100vh;
+    background-color: #e6e6e6;
+}
+
+.SideBarMenu{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.SideBarMenu > img{
+    margin-bottom: 30px;
+    width: 26px;
+}
+
+.MainPagebody{
+    width: 100%;
+}
+
+.MainPageHeader{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+}
+.MainPageHeaderName{
+    margin-left: 21px;
+    font-size: 17px;
+    font-weight: 700;
+}
+.MainPageHeaderMenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.MainPageHeaderMenu > img:nth-child(1){
+    margin-right: 20px;
+    width: 19px;
+    height: 19px;
+}
+.MainPageHeaderMenu > img:nth-child(2){
+    margin-right: 20px;
+    width: 23px;
+}
+
+.UserPageBody{
+    display: flex;
+    flex-direction: column;
+}
+
+.MyInfo{
+    width: 100%;
+    height: 65px;
+    border: 1px solid black;
+}
