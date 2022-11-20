@@ -17,7 +17,7 @@ function SignUpPage() {
 
   const signUpBtnClicked = ()=>{              //? 회원가입 버튼 클릭 
     if(btnClass === 'LoginPageLoginBtn') return
-    if(id.length < 7) return alert('계정의 길이가 알맞지 않습니다 8자이상 입력해주세요');
+    if(id.trim().length < 7) return alert('계정의 길이가 알맞지 않습니다 8자이상 입력해주세요');
     if(pw.length < 7) return alert('패스워드 길이가 알맞지 않습니다 8자이상 입력해주세요');
     if(pw !== pwConfirm) return alert('패스워드가 동일하지 않습니다');
 

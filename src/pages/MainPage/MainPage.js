@@ -15,6 +15,7 @@ function MainPage() {
         arr[num] = clickMenuImg[num];
         setMenuImg(arr);
     }
+    
   return (
     <div className='MainPage'>
 
