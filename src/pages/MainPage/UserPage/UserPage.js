@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../MainPage.css';
 import UserInfo from '../UserInfo';
+import AddFriendBar from '../Components/AddFriendBar';
 
 function UserPage() {
     const [userName , setUserName] = useState(UserInfo.USER_NAME);
@@ -20,6 +21,16 @@ function UserPage() {
         }
     }
 
+    const Addfriend = ()=>{
+        console.log('친구추가');
+    }
+
+    // useEffect(()=>{ //? 친구목록 불러오기
+    //     axios.get('/api/user/friendList').then(()=>{
+
+    //     })
+    // },[])
+
 
   return (
     <div>
@@ -30,9 +41,11 @@ function UserPage() {
 
             <div className='MainPageHeaderMenu'>
                 <img alt='친구찾기이미지' src='/img/clickedloupe.png'></img>
-                <img alt='친구추가이미지' src='/img/clickedadd-friend.png'></img>
+                <img onClick={Addfriend} alt='친구추가이미지' src='/img/clickedadd-friend.png'></img>
             </div>
         </div>
+
+        <AddFriendBar></AddFriendBar>
 
         <div className='UserPageBody'>
 
@@ -46,33 +59,14 @@ function UserPage() {
 
 
                 {
-                    [1,2,3,4].map(()=>{
+                    [1,2,3,4].map((el)=>{
                         return(
-                            <div className='Firend'>
+                            <div key={el} className='Firend'>
                                 <img src='/img/UserDefaultImg.png'></img>
                                 <div className='FirendStatus'>
                                     <div className='FirendName'>강병창</div>
                                     <div className='FirendStatusMsg'>안녕하세요</div>
 
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
-                                    {/* 여기 친구 데이터 받아와서 만들어야됨  */}
                                 </div>
                             </div>
                         )

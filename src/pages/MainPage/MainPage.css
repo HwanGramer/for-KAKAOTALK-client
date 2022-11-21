@@ -111,3 +111,67 @@
     color: rgba(0, 0, 0, 0.473);
     font-size: 13px;
 }
+
+.AddFirendBar{
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.AddFirendBar > p{
+
+    font-weight: 650;
+    margin: 0 auto;
+}
+.AddFirendCategory{
+    margin-top: 15px;
+    display: flex;
+}
+.AddFirendCategory > div{
+    text-align: center;
+    width: 50%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+}
+
+.FindFriendTel{
+    margin-top: 30px;
+    width: 100%;
+}
+
+.FindFriendTelInput{
+    margin-top: 18px;
+    width: 100%;
+    font-size: 15px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.349);
+    padding-bottom: 5px;
+}
+.FindFriendTelInput::placeholder{
+    color: rgba(105, 102, 102, 0.534);
+    font-size: 14px;
+}
+.FindFriendTelComent{
+    margin-top: 30px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.521);
+}
+
+
+.AddFriendBtn{
+    margin-top: 50px;
+    width: 300px;
+    height: 32px;
+    background-color: rgba(97, 95, 95, 0.116);
+    color: rgb(126, 125, 125);
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AddFriendBtn > div{
+    margin: 0 auto;
+}
