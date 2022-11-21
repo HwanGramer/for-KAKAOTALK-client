@@ -175,3 +175,26 @@
 .AddFriendBtn > div{
     margin: 0 auto;
 }
+
+.FindFrindInfoBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FindFriendImg{
+    margin: 0 auto;
+    width: 90px;
+    border-radius: 25px;
+}
+
+.FindFriendName{
+    margin-top: 11px;
+    font-size: 15px;
+}
+
+.FindFriendComent{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+}
