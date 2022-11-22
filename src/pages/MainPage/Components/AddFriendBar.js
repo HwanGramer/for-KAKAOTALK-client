@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import '../MainPage.css';
+import UserInfo from '../UserInfo';
 
 function AddFriendBar() {
     const [findType , setFindType] = useState(1); //? 1 : 연락처로알기  , 2 : id로 알기 , 3 : 찾았을때 친구정보
@@ -16,55 +17,33 @@ function AddFriendBar() {
     const [friendInfo , setFriendInfo] = useState({});
 
     const ChangeFindType = (type)=>{ //? 친구찾는 타입
+        setNotFindUser(false);
         setFindType(type);
     }
 
     const AddFriendClicked = (type)=>{ //? 유저 찾기
         setNotFindUser(false);
         if(type===1 && addBtnActiTel){  //? 전화번호로 유저찾기
-            axios.post('/api/user/findUserInfo/tel' , {tel}).then((result)=>{
-                if(!result.data.suc){
-                    return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
-                }
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                console.log(result.data.user)
-                setFindType(3);
-                setFriendInfo({...result.data.user});
-            })
+            try{
+                axios.post('/api/user/findUserInfo/tel' , {tel}).then((result)=>{
+                    if(!result.data.suc) return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
+                    if(result.data.user.user_id === UserInfo.USER_ID) return console.log('나임');
+                    axios.post('/api/user/friend/add' , {id : result.data.user.user_id}).then(()=>{ //? 최종적으로 유저가 있다면 DB에 친구등록함.
+                        setFindType(3);
+                        setFriendInfo({...result.data.user});
+                    })
+    
+                })
+            }
+            catch{
+                return alert('오류입니다');
+            }
         }
-        
+
+
         else if(type === 2 && addBtnActiId){ //? 아이디로 유저찾기
             axios.post('/api/user/findUserInfo/id' , {id}).then((result)=>{
-                if(!result.data.suc){
-                    return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
-                }
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
-                //? 여기서부터 유저가 있으면 자동으로 친추를 할것이냐 말것이냐 정하자. 일단 카톡은 누르는순간 걍 친추걸림
+                if(!result.data.suc) return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
                 console.log(result.data.user);
                 setFindType(3);
                 setFriendInfo({...result.data.user});

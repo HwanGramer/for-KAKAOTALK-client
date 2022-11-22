@@ -45,7 +45,8 @@ function UserPage() {
             </div>
         </div>
 
-        <AddFriendBar></AddFriendBar>
+        <AddFriendBar></AddFriendBar> 
+        {/* 친구추가 컴포넌트 */}
 
         <div className='UserPageBody'>
 
