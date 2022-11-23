@@ -5,7 +5,9 @@ import AddFriendBar from '../Components/AddFriendBar';
 
 function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
     const [openAddFriend , setOpenAddFriend] = useState(false);
+    const [newFriendList , setNewFriendList] = useState([]);
 
+// * --------------------------------------------------------------------------------------
     const ChangeName = ()=>{ //? 이름 바꾸는 함수 
         const newName = prompt('입력바람').trim();
         if(newName.length <= 20 && window.confirm(newName+'으로 바꾸시겠습니까?')){
@@ -19,17 +21,11 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
             alert('이름의 길이가 알맞지 않습니다');
         }
     }
+// * --------------------------------------------------------------------------------------
 
     const Addfriend = ()=>{
         setOpenAddFriend(!openAddFriend);
     }
-
-    // useEffect(()=>{ //? 친구목록 불러오기
-    //     axios.get('/api/user/friendList').then(()=>{
-
-    //     })
-    // },[])
-
 
   return (
     <div>
@@ -44,7 +40,7 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
             </div>
         </div>
 
-        {openAddFriend && <AddFriendBar></AddFriendBar>}  
+        {openAddFriend && <AddFriendBar setFriendList={setFriendList}  setNewFriendList={setNewFriendList}  newFriendList={newFriendList}></AddFriendBar>}  
         {/* 친구추가 컴포넌트 */}
 
         <div className='UserPageBody'>
@@ -54,42 +50,41 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 <div onClick={ChangeName} className='MyInfoName'>{userInfo.user_name === null ? '이름 등록 필수' : userInfo.user_name}</div>
             </div>
 
+        { //? 새로운 친구 리스트 
+            newFriendList.length > 0 && 
             <div className='FirendList'>
-                <div className='UserPageListName'>친구 {110}</div>
+                <div className='UserPageListName'>새로운친구 {newFriendList.length}</div>
+                {newFriendList.map((el,i)=>{
+                    return(
+                        <div key={i} className='Firend'>
+                            <img src='/img/UserDefaultImg.png'></img>
+                            <div className='FirendStatus'>
+                                <div className='FirendName'>{el.user_name}</div>
+                                <div className='FirendStatusMsg'>{el.user_status_msg}</div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        }
 
-
+            <div className='FirendList'>
+                <div className='UserPageListName'>친구 {friendList.length}</div>
                 {
                     friendList.map((el,i)=>{
                         return(
                             <div key={i} className='Firend'>
                                 <img src='/img/UserDefaultImg.png'></img>
                                 <div className='FirendStatus'>
-                                    <div className='FirendName'>{el.friend_id}</div>
-                                    <div className='FirendStatusMsg'>안녕하세요</div>
-
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-                                    {/* 해야될거 유저 상태메세지 추가랑 친구정보랑 유저정보 조인 해서 가져와야됨 */}
-
+                                    <div className='FirendName'>{el.user_name}</div>
+                                    <div className='FirendStatusMsg'>{el.user_status_msg}</div>
                                 </div>
                             </div>
                         )
                     })
                 }
             </div>
+
         </div>
         
     </div>
