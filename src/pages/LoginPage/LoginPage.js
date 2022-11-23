@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './LoginPage.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import UserInfo from '../MainPage/UserInfo';
 
 function LoginPage() {
   const navi = useNavigate();
@@ -13,14 +12,10 @@ function LoginPage() {
   const LoginBtnClicked = ()=>{ //* 로그인 버튼 클릭
     if(btnClass === 'LoginPageLoginBtn') return
     const loginInfo = {id , pw};
-
     axios.post('/api/user/login' , loginInfo).then((result)=>{
       if(!result.data.suc) return alert(result.data.msg);
-      const data = {...result.data.userInfo}
-      UserInfo.UserInfoPush(data.user_number , data.user_id , data.user_name , data.user_tel , data.user_sex , data.user_img , data.user_socket , data.user_status);
-      //? 유저정보 넣어놓음.
-      alert(result.data.msg);
-      return navi('/main');
+        alert(result.data.msg);
+        return navi('/main');
     })
   }
 

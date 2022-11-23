@@ -1,3 +1,4 @@
+import axios from "axios";
 
 export default {
     USER_NUMBER : null,
@@ -8,15 +9,20 @@ export default {
     USER_PROFILEIMG : null , 
     USER_SOCKET : null,
     USER_STATUS : null ,
-    UserInfoPush : function(n1,n2,n3,n4,n5,n6,n7,n8){
-        this.USER_NUMBER = n1
-        this.USER_ID = n2
-        this.USER_NAME = n3;
-        this.USER_TEL = n4
-        this.USER_SEX = n5
-        this.USER_PROFILEIMG = n6
-        this.USER_SOCKET = n7
-        this.USER_STATUS = n8
+    USER_FRIEND_LIST : null,
+    UserInfoPush : function(data){ //? this 바인딩 잘해야된다
+        this.USER_NUMBER = data.user_number
+        this.USER_ID = data.user_id
+        this.USER_NAME = data.user_name;
+        this.USER_TEL = data.user_tel
+        this.USER_SEX = data.user_sex
+        this.USER_PROFILEIMG = data.user_img
+        this.USER_SOCKET = data.user_socket
+        this.USER_STATUS = data.user_status
+        this.USER_FRIEND_LIST = data.friend_list
     },
+    userInforeload : function(){
+
+    }
 }
 

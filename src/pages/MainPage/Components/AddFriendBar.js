@@ -9,6 +9,7 @@ function AddFriendBar() {
     const [addBtnActiId , setAddBtnActiId] = useState(false);
     
     const [notFindTelUser , setNotFindUser] = useState(false);
+    const [addFriendComment , setAddFriendComment] = useState(true); //? 등록된 친구라면 false
     
     const [name , setName] = useState('');
     const [tel , setTel]  = useState('');
@@ -22,17 +23,19 @@ function AddFriendBar() {
     }
 
     const AddFriendClicked = (type)=>{ //? 유저 찾기
-        setNotFindUser(false);
-        if(type===1 && addBtnActiTel){  //? 전화번호로 유저찾기
+        setNotFindUser(false); 
+        setAddFriendComment(true); //? 기본값으로 초기화
+        //? 전화번호로 유저찾기
+        if(type===1 && addBtnActiTel){  
             try{
                 axios.post('/api/user/findUserInfo/tel' , {tel}).then((result)=>{
                     if(!result.data.suc) return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
-                    if(result.data.user.user_id === UserInfo.USER_ID) return console.log('나임');
-                    axios.post('/api/user/friend/add' , {id : result.data.user.user_id}).then(()=>{ //? 최종적으로 유저가 있다면 DB에 친구등록함.
-                        setFindType(3);
-                        setFriendInfo({...result.data.user});
+                    if(result.data.user.user_id === UserInfo.USER_ID) return alert('자기자신입니다');
+                    setFindType(3);
+                    setFriendInfo({...result.data.user});
+                    axios.post('/api/user/friend/add' , {id : result.data.user.user_id}).then((result2)=>{ //? 최종적으로 유저가 있다면 DB에 친구등록함.
+                        if(!result2.data.suc) return setAddFriendComment(false);
                     })
-    
                 })
             }
             catch{
@@ -40,15 +43,23 @@ function AddFriendBar() {
             }
         }
 
+        //? 아이디로 유저찾기
+        else if(type === 2 && addBtnActiId){ 
+            try{
+                axios.post('/api/user/findUserInfo/id' , {id}).then((result)=>{
+                    if(!result.data.suc) return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
+                    if(result.data.user.user_id === UserInfo.USER_ID) return alert('자기자신입니다');
+                    setFindType(3);
+                    setFriendInfo({...result.data.user});
+                    axios.post('/api/user/friend/add' , {id : result.data.user.user_id}).then((result2)=>{ //! 이거 나중에 함수하나로 합치자.
+                        if(!result2.data.suc) return setAddFriendComment(false);
+                    })
+                })
+            }catch{
 
-        else if(type === 2 && addBtnActiId){ //? 아이디로 유저찾기
-            axios.post('/api/user/findUserInfo/id' , {id}).then((result)=>{
-                if(!result.data.suc) return setNotFindUser(true); //? 유저가 없다면 문구 띄움 
-                console.log(result.data.user);
-                setFindType(3);
-                setFriendInfo({...result.data.user});
-            })
+            }
         }
+
     }
     
     useEffect(()=>{ //? 연락처 친구추가 버튼활성화
@@ -107,7 +118,7 @@ function AddFriendBar() {
                         <img className='FindFriendImg' src={friendInfo.user_img===null ? '/img/UserDefaultImg.png' : friendInfo.user_img}></img> 
                     {/* <img src={friendInfo?.user_img === null ? '/img/UserDefaultImg.png' : friendInfo?.user_img}></img> */}
                         <div className='FindFriendName'>{friendInfo.user_name}</div>
-                        <div className='FindFriendComent'>*이 코멘트는 이미 친추가되있다면 바뀌어야됨.*</div>
+                        <div className='FindFriendComent'>{addFriendComment ? '친구추가되었습니다': '이미 등록된 친구입니다'}</div>
                         <div style={{'textAlign':'center' , 'marginTop':'6px' , 'color':'#a59f9ffc' , 'fontSize':'14px'}}> 친구에게 보여줄 프로필을 변경하거나 <br></br>1:1 채팅을 바로 시작해보세요. </div>
                     </div>
                 </div>
