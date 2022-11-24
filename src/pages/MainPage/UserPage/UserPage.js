@@ -23,6 +23,35 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
     }
 // * --------------------------------------------------------------------------------------
 
+
+// * --------------------------------------------------------------------------------------
+    const ProfileImgUpdate = (e)=>{   //? 이미지 업로드 함수 
+        //? 파일 올리면 여기로 들어온다 .
+        if(!e.target.files) return 
+        const formData = new FormData();
+        formData.append('image' , e.target.files[0]);
+        const config = {headers: {'Content-Type': 'multipart/form-data',}};
+
+
+
+
+        axios.post('/api/user/myinfo/profileImg' , formData , config).then((result)=>{
+            console.log(result.data);
+        })
+
+
+
+
+        const obj = {...userInfo};
+        obj.user_img = 'http://localhost:8080/profileImg/song.jpeg';
+        setUserInfo(obj);
+    }
+
+// * --------------------------------------------------------------------------------------
+
+
+
+
     const Addfriend = ()=>{
         setOpenAddFriend(!openAddFriend);
     }
@@ -43,9 +72,30 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
         {openAddFriend && <AddFriendBar setFriendList={setFriendList}  setNewFriendList={setNewFriendList}  newFriendList={newFriendList}></AddFriendBar>}  
         {/* 친구추가 컴포넌트 */}
 
+
         <div className='UserPageBody'>
 
             <div className='MyInfo'>
+
+
+            <form name={'profileImgInput'} enctype="multipart/form-data" method="post">
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                {/* 왜안돼는거야 이 시발  */}
+                <label className='profileImgUpdateInput' htmlFor='imgInput'></label>
+                <input onChange={ProfileImgUpdate} name="profileImgInput" accept={'image/*'} type={'file'} id='imgInput' style={{'display':'none'}}></input>
+            </form>
+
+
                 <img alt='프로필이미지' src={userInfo.user_img === null ? '/img/UserDefaultImg.png' : userInfo.user_img}></img>
                 <div onClick={ChangeName} className='MyInfoName'>{userInfo.user_name === null ? '이름 등록 필수' : userInfo.user_name}</div>
             </div>

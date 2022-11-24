@@ -17,7 +17,7 @@ function MainPage() {
         const arr = ['/img/userImg.png' , '/img/chatt.png','/img/option.png'];
         arr[num] = clickMenuImg[num];
         setMenuImg(arr);
-    }
+    } 
 
     useEffect(()=>{ //? 여기서 유저정보랑 챗팅방 같은거 싹다 모아서 Props로 전달해주자.
       axios.get('/api/user/myinfo').then((myinfo)=>{ //? 유저정보 
