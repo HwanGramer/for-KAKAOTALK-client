@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../MainPage.css';
 import AddFriendBar from '../Components/AddFriendBar';
 
@@ -9,16 +9,33 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
 
 // * --------------------------------------------------------------------------------------
     const ChangeName = ()=>{ //? 이름 바꾸는 함수 
-        const newName = prompt('입력바람').trim();
-        if(newName.length <= 20 && window.confirm(newName+'으로 바꾸시겠습니까?')){
-            axios.post('/api/user/changeName' , {newName:newName} ).then((result)=>{
+        const newName = prompt('이름')?.trim();
+        if(newName?.length <= 20 && newName?.length >= 1 && window.confirm(newName+'으로 바꾸시겠습니까?')){
+            axios.put('/api/user/changeName' , {newName:newName} ).then((result)=>{
                 if(!result.data.suc) return alert(result.data.msg);
                 const obj = {...userInfo};
                 obj.user_name = newName;
                 setUserInfo(obj);
             })
         }else{
-            alert('이름의 길이가 알맞지 않습니다');
+            return alert('이름의 길이가 알맞지 않습니다');
+        }
+    }
+// * --------------------------------------------------------------------------------------
+
+
+// * --------------------------------------------------------------------------------------
+    const ChangeStatusMsg = ()=>{ //? 상태메세지 바꾸기
+        const newStatusMsg = prompt('상태메세지')?.trim();
+        if(newStatusMsg?.length <= 30 && newStatusMsg?.length >= 1){
+            axios.put('/api/user/statusMsg' , {newStatusMsg}).then((result)=>{
+                if(!result.data.suc) return alert(result.data.msg);
+                const obj = {...userInfo}; //? 상태메세지 동기화
+                obj.user_status_msg = newStatusMsg;
+                setUserInfo(obj);
+            })
+        }else{
+            return alert('상태메세지의 길이가 알맞지 않습니다');
         }
     }
 // * --------------------------------------------------------------------------------------
@@ -36,31 +53,24 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
         axios.post('/api/user/myinfo/profileImg' , formData , config).then((result)=>{ //? 이미지 DB에 저장 
             if(!result.data.suc) return alert(result.data.msg);
             //? result.data에 suc , msg , imgName 3개옴.
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
-            //! 일단 거의 다됬고 , 프사 바꾸면 바로 적용되게 해야되는게 어렵네
+            return window.location.reload();
         })
     }
+// * --------------------------------------------------------------------------------------
+
 
 // * --------------------------------------------------------------------------------------
+    const MakeChat = () => {
+        console.log('double click');
+        // 더블클릭하면 채팅창이 나와야됨
+    }
+// * --------------------------------------------------------------------------------------
+
 
     const Addfriend = ()=>{
         setOpenAddFriend(!openAddFriend);
     }
+    
 
   return (
     <div>
@@ -85,9 +95,14 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 <label className='profileImgUpdateInput' name="profileImgInput" htmlFor='imgInput'></label>
                 <input multiple={false} onChange={ProfileImgUpdate} name="profileImgInput" accept={'image/*'} type={'file'} id='imgInput' style={{'display':'none'}}></input>
 
-                <img alt='프로필이미지' src={userInfo.user_img === null ? '/img/UserDefaultImg.png' : userInfo.user_img}></img>
-                <div onClick={ChangeName} className='MyInfoName'>{userInfo.user_name === null ? '이름 등록 필수' : userInfo.user_name}</div>
+                <img alt='프로필이미지' src={userInfo.user_img===null?'/img/UserDefaultImg.png' : userInfo.user_img}></img>
+
+                <div>
+                    <div onClick={ChangeName} className='MyInfoName'>{userInfo.user_name === null ? '이름 등록 필수' : userInfo.user_name}</div>
+                    <div onClick={ChangeStatusMsg} className='MyStatusMsg'>{userInfo.user_status_msg===null ? '상태메세지를 입력해보세요!' : userInfo.user_status_msg}</div>
+                </div>
             </div>
+
 
         { //? 새로운 친구 리스트 
             newFriendList.length > 0 && 
@@ -96,7 +111,7 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 {newFriendList.map((el,i)=>{
                     return(
                         <div key={i} className='Firend'>
-                            <img src='/img/UserDefaultImg.png'></img>
+                            <img alt='기본이미지' src='/img/UserDefaultImg.png'></img>
                             <div className='FirendStatus'>
                                 <div className='FirendName'>{el.user_name}</div>
                                 <div className='FirendStatusMsg'>{el.user_status_msg}</div>
@@ -112,8 +127,8 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 {
                     friendList.map((el,i)=>{
                         return(
-                            <div key={i} className='Firend'>
-                                <img src={el.user_img === null ? '/img/UserDefaultImg.png' : el.user_img}></img>
+                            <div onDoubleClick={MakeChat} key={i} className='Firend'>
+                                <img alt='기본이미지' src={el.user_img === null ? '/img/UserDefaultImg.png' : el.user_img}></img>
                                 <div className='FirendStatus'>
                                     <div className='FirendName'>{el.user_name}</div>
                                     <div className='FirendStatusMsg'>{el.user_status_msg}</div>
