@@ -60,9 +60,8 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
 
 
 // * --------------------------------------------------------------------------------------
-    const MakeChat = () => {
-        console.log('double click');
-        // 더블클릭하면 채팅창이 나와야됨
+    const MakeChat = (receiverID) => {
+        window.open(`/chatRoom/${receiverID}`, '' , ''); //? 새창열기
     }
 // * --------------------------------------------------------------------------------------
 
@@ -127,7 +126,7 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 {
                     friendList.map((el,i)=>{
                         return(
-                            <div onDoubleClick={MakeChat} key={i} className='Firend'>
+                            <div onDoubleClick={()=>{MakeChat(el.user_id)}} key={i} className='Firend'>
                                 <img alt='기본이미지' src={el.user_img === null ? '/img/UserDefaultImg.png' : el.user_img}></img>
                                 <div className='FirendStatus'>
                                     <div className='FirendName'>{el.user_name}</div>

@@ -2,7 +2,7 @@ import { Routes , Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage"; 
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import MainPage from "./pages/MainPage/MainPage";
-import MyProfilePage from "./pages/MainPage/UserPage/MyProfilePage";
+import PrivateChatPage from "./pages/ChatPage/PrivateChatPage";
 
 function App() {
   return (
@@ -13,6 +13,8 @@ function App() {
         <Route path='/main' element={<MainPage></MainPage>}></Route>
         {/* <Route path='/myProfile' element={<MyProfilePage></MyProfilePage>}></Route> */}
 
+      {/* chat  */}
+        <Route path='/chatRoom/:receiver' element={<PrivateChatPage></PrivateChatPage>}></Route>
       </Routes>
     </div>
   );
