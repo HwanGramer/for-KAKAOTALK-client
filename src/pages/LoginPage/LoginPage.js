@@ -14,7 +14,9 @@ function LoginPage() {
     const loginInfo = {id , pw};
     axios.post('/api/user/login' , loginInfo).then((result)=>{
       if(!result.data.suc) return alert(result.data.msg);
-        alert(result.data.msg);
+        alert(result.data.msg); //? 로그인 성공했을때
+
+        //! 여기서 소켓연결 들어가야될거 같다.
         return navi('/main');
     })
   }

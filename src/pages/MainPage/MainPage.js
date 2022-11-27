@@ -5,7 +5,11 @@ import OptionPage from './OptionPage/OptionPage';
 import UserPage from './UserPage/UserPage';
 import axios from 'axios';
 
-function MainPage() {
+
+//? 메인페이지 로직 
+//* 1. 접속시 소켓요청으로 소켓아이디가 서버로간다. 서버에서 소켓아이디를 DB에 저장한다. 즉 메인페이지에서 새로고침되도 DB에 계속 저장함.
+
+function MainPage({socket}) {
     const [userInfo , setUserInfo] = useState({});
     const [friendList , setFriendList] = useState([]);
     const [pageNum , setPageNum] = useState(0);
@@ -20,8 +24,13 @@ function MainPage() {
     } 
 
     useEffect(()=>{ //? 여기서 유저정보랑 챗팅방 같은거 싹다 모아서 Props로 전달해주자.
+      //? 기본적으로 접속하면 소켓아이디가 DB에 저장되어야하는데..
+
       axios.get('/api/user/myinfo').then((myinfo)=>{ //? 유저정보 
         if(!myinfo.data.suc) return alert(myinfo.data.msg);
+
+        socket.emit('DBinSocket' ,myinfo.data.data.user_id)//? 소켓으로 나의 아이디도 같이보냄.
+
         axios.get('/api/user/friend/list').then((fList)=>{
           if(!fList.data.suc) return alert(fList.data.msg);
           setFriendList(fList.data.data)
