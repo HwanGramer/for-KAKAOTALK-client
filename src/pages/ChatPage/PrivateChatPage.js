@@ -5,10 +5,12 @@ import './ChatPage.css';
 
 
 function PrivateChatPage({socket}) {
-    const {receiver} = useParams(); //? receiver유저에게 챗을 보내야됨.
+    const {receiver , myId} = useParams(); //? receiver유저에게 챗을 보내야됨.
 
     const [chatMsg , setChatMsg] = useState('');
     const [sendUserInfo , setSendUserInfo] = useState({});
+
+    const [receiverSocketId , setReceiverSocketId] = useState(''); //? 상대방의 소켓 아이디임..
 
 //* ------------------------------------------------------------------------------------------ 
     useEffect(()=>{ //? 로그인되지 않았거나 채팅할 유저가 일치하지않으면 브라우저는 닫힘
@@ -16,19 +18,53 @@ function PrivateChatPage({socket}) {
             if(!result.data.suc){alert(result.data.msg); return window.close();} //? 유저가 없으면 강제종료 
             setSendUserInfo({...result.data.data}); //? 챗 상대 유저정보 담아줌
 
-            axios.post('/api/chat/makePrivateChat').then(()=>{
-                
-            })
-            // socket.emit('MakePrivateChat' , result.data.data.user_id , );
+            //? 소켓통신으로 상대방아이디와 내 아이디와 내 소켓을 보내야됨. 이렇게 하면 DB에 chat_room이 만들어짐. 이렇게 해야 새로고침해도 안끊기게 할 수 있는거 같긴함.
+            socket.emit('MakePrivateChat' , {receiverId : result.data.data.user_id , myId});
+        })
+
+                // 소켓설정 
+
+        //* 상대방의 소켓아이디 업데이트 (상대방이 나와의 채팅을 들어오면 DB에 상대방의 소켓ID가 업데이트되면서 새로고침해서 계속 연결이 유지될 수 있음).
+        socket.on('chatSocketUpdate', (data)=>{ //? 여기서 receiver는 메세지받는사람의 id인데 그사람의 소켓id를 따로 State로 보관해주자.
+            if(data.member_A_id === receiver) setReceiverSocketId(data.member_A_socket);
+            else setReceiverSocketId(data.member_B_socket);
         })
     },[])
 //* ------------------------------------------------------------------------------------------
 
 
+
 //* ------------------------------------------------------------------------------------------
 
     const SendChat = ()=>{
-        console.log(chatMsg);
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        //? socket.emit(receiverSocketId) socket.on('msg')
     }
 
 //* ------------------------------------------------------------------------------------------

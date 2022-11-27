@@ -10,6 +10,9 @@ import axios from 'axios';
 //* 1. 접속시 소켓요청으로 소켓아이디가 서버로간다. 서버에서 소켓아이디를 DB에 저장한다. 즉 메인페이지에서 새로고침되도 DB에 계속 저장함.
 
 function MainPage({socket}) {
+  socket.on('test' , (data)=>{
+    console.log(data);
+  })
     const [userInfo , setUserInfo] = useState({});
     const [friendList , setFriendList] = useState([]);
     const [pageNum , setPageNum] = useState(0);

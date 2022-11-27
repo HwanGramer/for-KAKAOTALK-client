@@ -16,7 +16,7 @@ function App() {
         {/* <Route path='/myProfile' element={<MyProfilePage></MyProfilePage>}></Route> */}
 
       {/* chat  */}
-        <Route path='/chatRoom/:receiver' element={<PrivateChatPage socket={socket}></PrivateChatPage>}></Route>
+        <Route path='/chatRoom/:receiver/:myId' element={<PrivateChatPage socket={socket}></PrivateChatPage>}></Route>
       </Routes>
     </div>
   );
