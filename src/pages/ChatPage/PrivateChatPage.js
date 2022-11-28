@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import './ChatPage.css';
 
-
 function PrivateChatPage({socket}) {
     const {receiver , myId} = useParams(); //? receiver유저에게 챗을 보내야됨.
 
@@ -22,13 +21,35 @@ function PrivateChatPage({socket}) {
             socket.emit('MakePrivateChat' , {receiverId : result.data.data.user_id , myId});
         })
 
-                // 소켓설정 
-
+                //* 소켓설정 
         //* 상대방의 소켓아이디 업데이트 (상대방이 나와의 채팅을 들어오면 DB에 상대방의 소켓ID가 업데이트되면서 새로고침해서 계속 연결이 유지될 수 있음).
         socket.on('chatSocketUpdate', (data)=>{ //? 여기서 receiver는 메세지받는사람의 id인데 그사람의 소켓id를 따로 State로 보관해주자.
             if(data.member_A_id === receiver) setReceiverSocketId(data.member_A_socket);
             else setReceiverSocketId(data.member_B_socket);
         })
+
+        //* receiverSocketId클라이언트가 나에게 보내는 메시지를 받는 이벤트
+        socket.on('chatMsg' , (data)=>{
+            console.log(data);
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+            //? 메세지 받는거까지 성공
+        })
+
     },[])
 //* ------------------------------------------------------------------------------------------
 
@@ -37,33 +58,10 @@ function PrivateChatPage({socket}) {
 //* ------------------------------------------------------------------------------------------
 
     const SendChat = ()=>{
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
-        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. 여기다가 메세지보내는거 하자 
+        socket.emit('chatMsg' , chatMsg , receiverSocketId , ()=>{
+            console.log('성공');
+        })
+        //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. receiverSocketId 여기다가 메세지보내는거 하자 
         //? socket.emit(receiverSocketId) socket.on('msg')
     }
 
