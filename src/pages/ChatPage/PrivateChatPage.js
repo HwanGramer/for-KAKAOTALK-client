@@ -8,8 +8,9 @@ function PrivateChatPage({socket}) {
 
     const [chatMsg , setChatMsg] = useState('');
     const [sendUserInfo , setSendUserInfo] = useState({});
-
     const [receiverSocketId , setReceiverSocketId] = useState(''); //? 상대방의 소켓 아이디임..
+
+    const [chatList , setChatList] = useState([]);
 
 //* ------------------------------------------------------------------------------------------ 
     useEffect(()=>{ //? 로그인되지 않았거나 채팅할 유저가 일치하지않으면 브라우저는 닫힘
@@ -30,23 +31,7 @@ function PrivateChatPage({socket}) {
 
         //* receiverSocketId클라이언트가 나에게 보내는 메시지를 받는 이벤트
         socket.on('chatMsg' , (data)=>{
-            console.log(data);
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
-            //? 메세지 받는거까지 성공
+            setChatList(chatList => [...chatList , data]);
             //? 메세지 받는거까지 성공
         })
 
@@ -57,15 +42,24 @@ function PrivateChatPage({socket}) {
 
 //* ------------------------------------------------------------------------------------------
 
-    const SendChat = ()=>{
-        socket.emit('chatMsg' , chatMsg , receiverSocketId , ()=>{
-            console.log('성공');
+    const SendChat = ()=>{ //* 채팅을 보내는 순간 DB에도 채팅이 저장됨. 그리고 계속 최신화가 됨.
+        socket.emit('chatMsg' , chatMsg , receiverSocketId , myId , receiver, ()=>{
+            //? 성공시 챗리스트 최신화
+            setChatList(chatList => [...chatList , {myId,chatMsg}]);
+            setChatMsg('');
         })
         //? 해야할일 오늘 한게 기억이 안나더라도  receiverSocketId이 소켓아이디임. receiverSocketId 여기다가 메세지보내는거 하자 
-        //? socket.emit(receiverSocketId) socket.on('msg')
+        //? socket.emit(receiverSocketId) socket.on('msg') 
     }
 
 //* ------------------------------------------------------------------------------------------
+
+//* ------------------------------------------------------------------------------------------
+    const ChatEnter = (e)=>{ //? 채팅창에서 엔터누르면 전송됨.
+        if(e.key === 'Enter') SendChat();
+    }
+//* ------------------------------------------------------------------------------------------
+
     
   return (
     <div className='ChatRoomContainer'>
@@ -79,13 +73,24 @@ function PrivateChatPage({socket}) {
 
 
         <div className='chatRoomBody'>
-
+            <div className='chatBox'>
+            {
+                chatList.map((el , i)=>{
+                    
+                    return(
+                        el.myId === myId ? 
+                        <div className='rightChatBox'> <span className='chatMsgbox' key={i}>{el.chatMsg}</span> </div>
+                        :<div className='leftChatBox'> <span className='chatMsgbox2'>{el.chatMsg}</span> </div>
+                    )
+                })
+            }
+            </div>
         </div>
 
 
         <div className='chatFooter'>
 
-            <textarea value={chatMsg} onChange={(e)=>{setChatMsg(e.target.value)}}>
+            <textarea onKeyPress={ChatEnter} value={chatMsg} onChange={(e)=>{setChatMsg(e.target.value)}}>
                 
             </textarea>
 

@@ -19,21 +19,52 @@
 }
 
 
-
-
-
 .chatRoomBody{
-    width: 100VW;
+    padding-top: 65px;
+    padding-bottom: 100px;
+    width: 100vw;
     height: 100vh;
-    background-color: #bcd1dc
+    background-color: #bcd1dc;
 }
 
+.chatBox{
+    width: 100vw;
+    overflow: scroll;
+    background-color: #bcd1dc;
+    padding-bottom: 150px;
+}
+
+.chatMsgbox{
+    padding:7px;
+    margin-right: 20px;
+    margin-top: 10px;
+    max-width: 400px;
+    background-color: #ffeb32;
+}
+.rightChatBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.leftChatBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.chatMsgbox2{
+    padding:7px;
+    margin-left: 20px;
+    margin-top: 10px;
+    max-width: 400px;
+    background-color: white;
+}
 
 
 .chatFooter{
     background-color: white;
     padding: 20px 0 20px 0;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     display: flex;
     border-top: 1px solid rgb(182, 179, 179);
