@@ -22,6 +22,15 @@ function PrivateChatPage({socket}) {
             socket.emit('MakePrivateChat' , {receiverId : result.data.data.user_id , myId});
         })
 
+        // axios.get(`/api/chat?myId=${myId}&receiver=${receiver}`).then(()=>{
+        //     console.log('챗리스트');
+        // })
+        axios.get(`/api/chat/chatList?myId=${myId}&receiver=${receiver}`).then((result)=>{
+            if(!result.data.suc){alert(result.data.msg); return window.close();}
+            setChatList(result.data.chatList);
+        })
+
+
                 //* 소켓설정 
         //* 상대방의 소켓아이디 업데이트 (상대방이 나와의 채팅을 들어오면 DB에 상대방의 소켓ID가 업데이트되면서 새로고침해서 계속 연결이 유지될 수 있음).
         socket.on('chatSocketUpdate', (data)=>{ //? 여기서 receiver는 메세지받는사람의 id인데 그사람의 소켓id를 따로 State로 보관해주자.
@@ -38,12 +47,17 @@ function PrivateChatPage({socket}) {
     },[])
 //* ------------------------------------------------------------------------------------------
 
+    useEffect(()=>{ //? 챗리스트가 업뎃되면 스크롤 내려감.
+        window.scrollTo(0,document.body.scrollHeight); //? 채팅치면 무조건 스크롤은 아래로 내려간다. 
+    },[chatList])
+
 
 
 //* ------------------------------------------------------------------------------------------
 
     const SendChat = ()=>{ //* 채팅을 보내는 순간 DB에도 채팅이 저장됨. 그리고 계속 최신화가 됨.
-        socket.emit('chatMsg' , chatMsg , receiverSocketId , myId , receiver, ()=>{
+        socket.emit('chatMsg' , chatMsg , receiverSocketId , myId , receiver, (err)=>{
+            if(err) return alert('채팅메세지를 저장하지 못했습니다');
             //? 성공시 챗리스트 최신화
             setChatList(chatList => [...chatList , {myId,chatMsg}]);
             setChatMsg('');
@@ -71,22 +85,21 @@ function PrivateChatPage({socket}) {
             <div className='chatRoomName'>{sendUserInfo.user_name}</div>
         </div>
 
-
+    <div style={{'background' : '#bcd1dc' , height:'90vh' , width:'100vw'}}>
         <div className='chatRoomBody'>
             <div className='chatBox'>
             {
                 chatList.map((el , i)=>{
-                    
                     return(
                         el.myId === myId ? 
-                        <div className='rightChatBox'> <span className='chatMsgbox' key={i}>{el.chatMsg}</span> </div>
-                        :<div className='leftChatBox'> <span className='chatMsgbox2'>{el.chatMsg}</span> </div>
+                        <div className='rightChatBox'> <div className='chatMsgbox' key={i}>{el.chatMsg}</div> </div>
+                        :<div className='leftChatBox'> <div className='chatMsgbox2'>{el.chatMsg}</div> </div>
                     )
                 })
             }
             </div>
         </div>
-
+    </div>
 
         <div className='chatFooter'>
 
