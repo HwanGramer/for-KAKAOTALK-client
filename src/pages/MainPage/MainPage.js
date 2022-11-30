@@ -55,7 +55,7 @@ function MainPage({socket}) {
 
       <div className='MainPagebody'>
               {pageNum === 0 && <UserPage userInfo={userInfo} setUserInfo={setUserInfo} friendList={friendList} setFriendList={setFriendList}></UserPage>}
-              {pageNum === 1 && <ChatPage></ChatPage>}
+              {pageNum === 1 && <ChatPage userInfo={userInfo}></ChatPage>}
               {pageNum === 2 && <OptionPage></OptionPage>}
       </div>
 
