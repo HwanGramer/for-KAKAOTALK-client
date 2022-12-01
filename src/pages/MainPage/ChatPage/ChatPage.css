@@ -10,6 +10,10 @@
     width: 100%;
     height: 75px;
 }
+.ChatListElement:hover{
+    cursor: pointer;
+    background-color: rgba(214, 212, 212, 0.212);
+}
 .ChatListElement > img{
     margin-left: 20px;
     width: 50px;
@@ -32,4 +36,15 @@
 }
 .chatNameAndChat{
     margin-left: 11px;
+}
+
+.newMsgAlarm{
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    position: absolute;
+    right: 50px;
+    background-color: rgb(255, 0, 0);
+    border-radius: 100%;
+    padding: 5px
 }

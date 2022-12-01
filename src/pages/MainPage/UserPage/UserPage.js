@@ -110,7 +110,7 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
                 {newFriendList.map((el,i)=>{
                     return(
                         <div key={i} className='Firend'>
-                            <img alt='기본이미지' src='/img/UserDefaultImg.png'></img>
+                            <img alt='기본이미지' src={el.user_img}></img>
                             <div className='FirendStatus'>
                                 <div className='FirendName'>{el.user_name}</div>
                                 <div className='FirendStatusMsg'>{el.user_status_msg}</div>

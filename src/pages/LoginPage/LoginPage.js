@@ -14,11 +14,13 @@ function LoginPage() {
     const loginInfo = {id , pw};
     axios.post('/api/user/login' , loginInfo).then((result)=>{
       if(!result.data.suc) return alert(result.data.msg);
-        alert(result.data.msg); //? 로그인 성공했을때
-
         //! 여기서 소켓연결 들어가야될거 같다.
         return navi('/main');
     })
+  }
+
+  const LoginEnter = (e)=>{ //? 채팅창에서 엔터누르면 전송됨.
+    if(e.key === 'Enter') LoginBtnClicked();
   }
 
   useEffect(()=>{
@@ -35,7 +37,7 @@ function LoginPage() {
 
         <div className='LoginPageLoginBoxLine'></div>
 
-        <input value={pw} onChange={(e)=>{setPw(e.target.value)}} placeholder='비밀번호' type={'password'} className='pw'></input>
+        <input onKeyPress={LoginEnter} value={pw} onChange={(e)=>{setPw(e.target.value)}} placeholder='비밀번호' type={'password'} className='pw'></input>
       </div>
 
       <div onClick={LoginBtnClicked} className={btnClass}>
