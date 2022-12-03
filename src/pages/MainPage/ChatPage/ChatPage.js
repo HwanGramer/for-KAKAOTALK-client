@@ -32,6 +32,7 @@ function ChatPage({userInfo , socket}) {
 
   const ChatOpen = (targetId)=>{
     window.open(`/chatRoom/${targetId}/${userInfo.user_id}`, '' , ''); //? 채팅창 열기
+    window.location.reload();
   }
 
 //* -----------------------------------------------------------------------------------------------

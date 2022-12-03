@@ -17,11 +17,11 @@ function PrivateChatPage({socket}) {
 
 //* ------------------------------------------------------------------------------------------ 
 useEffect(()=>{ //? 로그인되지 않았거나 채팅할 유저가 일치하지않으면 브라우저는 닫힘
-        //? 모든 채팅 읽기
+        //? 모든 채팅 읽기 //? sender와 receiver아이디가 동일해야 saw_chat을 0 으로만들어야된다.
         axios.put('/api/chat/sawChat' , {receiver,myId}).then((result)=>{
             if(!result.data.suc){alert(result.data.msg); return window.close();} 
         });
-        
+
         axios.post('/api/user/check' , {userId : receiver}).then((result)=>{
             if(!result.data.suc){alert(result.data.msg); return window.close();} //? 유저가 없으면 강제종료 
             setSendUserInfo({...result.data.data}); //? 챗 상대 유저정보 담아줌

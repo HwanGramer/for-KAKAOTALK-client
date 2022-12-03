@@ -62,6 +62,7 @@ function UserPage({userInfo , setUserInfo,friendList,setFriendList}) {
 // * --------------------------------------------------------------------------------------
     const MakeChat = (receiverID) => {
         window.open(`/chatRoom/${receiverID}/${userInfo.user_id}`, '' , ''); //? 새창열기
+        window.location.reload();
     }
 // * --------------------------------------------------------------------------------------
 
